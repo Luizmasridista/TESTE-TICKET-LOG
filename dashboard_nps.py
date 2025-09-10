@@ -37,12 +37,25 @@ if 'chat_active' not in st.session_state:
 if 'chat_messages' not in st.session_state:
     st.session_state.chat_messages = {}
 
-# Título principal
-st.title("📊 Dashboard NPS Corporativo")
+# Header com logo e título
+col_logo, col_titulo, col_ordenacao = st.columns([1, 4, 2])
 
-# Filtro de ordenação no cabeçalho
-col_titulo, col_ordenacao = st.columns([3, 1])
+with col_logo:
+    try:
+        st.image("ticket-log.png", width=120)
+    except:
+        st.write("")
+
+with col_titulo:
+    st.markdown("""
+    <div style="padding-top: 20px; text-align: center;">
+        <h1 style="color: #1f77b4; margin: 0; font-size: 2.5em; font-weight: 700;">📊 Dashboard de Desempenho NPS</h1>
+        <p style="color: #666; margin: 5px 0 0 0; font-size: 1.1em;">Análise Completa de Net Promoter Score</p>
+    </div>
+    """, unsafe_allow_html=True)
+
 with col_ordenacao:
+    st.markdown("<div style='padding-top: 25px;'></div>", unsafe_allow_html=True)
     ordenacao_selecionada = st.selectbox(
         "🔄 Ordenação dos Dados",
         ["Tudo (Padrão)", "Maior Nota", "Menor Nota", "Mais Recentes", "Mais Antigos"],
