@@ -46,12 +46,27 @@ O arquivo Excel deve conter as seguintes colunas:
 pip install -r requirements.txt
 ```
 
-### 2. Executar o Dashboard
+### 2. Configurar API Key do Google Gemini (Obrigatório para IA)
+```bash
+# Copie o arquivo de exemplo
+cp .env.example .env
+
+# Edite o arquivo .env e adicione sua API key
+# GOOGLE_API_KEY=sua_api_key_aqui
+```
+
+**📋 Como obter a API Key:**
+- Acesse: https://makersuite.google.com/app/apikey
+- Faça login com sua conta Google
+- Clique em "Create API Key"
+- Copie a chave gerada para o arquivo `.env`
+
+### 3. Executar o Dashboard
 ```bash
 streamlit run dashboard_nps.py
 ```
 
-### 3. Acessar no Navegador
+### 4. Acessar no Navegador
 O dashboard será aberto automaticamente em: `http://localhost:8501`
 
 ## 📁 Estrutura do Projeto

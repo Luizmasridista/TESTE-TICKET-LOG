@@ -8,6 +8,11 @@ from datetime import datetime
 import io
 import google.generativeai as genai
 import json
+import os
+from dotenv import load_dotenv
+
+# Carregar variáveis de ambiente do arquivo .env
+load_dotenv()
 
 # Configuração da página
 st.set_page_config(
@@ -18,8 +23,13 @@ st.set_page_config(
 )
 
 # Configuração do Gemini AI
-genai.configure(api_key="AIzaSyDPMSKm0UI09YIBx-08TgZQMzzWfkOZ5qM")
-model = genai.GenerativeModel('gemini-1.5-flash')
+api_key = os.getenv('GOOGLE_API_KEY')
+if api_key:
+    genai.configure(api_key=api_key)
+    model = genai.GenerativeModel('gemini-1.5-flash')
+else:
+    st.warning("⚠️ API Key do Google Gemini não configurada. Configure a variável de ambiente GOOGLE_API_KEY para usar a análise com IA.")
+    model = None
 
 # Inicializar estado da sessão para chat
 if 'chat_active' not in st.session_state:
@@ -166,6 +176,9 @@ def gerar_prompt_analise(indicadores):
 
 def consultar_gemini(prompt):
     """Consulta a API do Gemini com o prompt fornecido"""
+    if model is None:
+        return "⚠️ API Key do Google Gemini não configurada. Configure a variável de ambiente GOOGLE_API_KEY para usar a análise com IA."
+    
     try:
         response = model.generate_content(prompt)
         return response.text
